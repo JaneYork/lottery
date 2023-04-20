@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		
+		<title>@JaneYork&@Snow</title>
+		<style>
+			html,
+			body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+			.parent {
+				top: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				flex-direction: column;
+			}
+
+			.child {
+				text-align: center;
+				margin: auto;
+			}
+		</style>
+	</head>
+
+	<script src="https://unpkg.com/lucky-canvas@1.7.25"></script>
+	<body>
+		<div class="parent">
+			<div class="child" id="my-lucky2">
+				<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86
+					src="//music.163.com/outchain/player?type=2&id=1836115261&auto=1&height=66"></iframe>
+			</div>
+			<div class="child" id="my-lucky"></div>
+		</div>
+	</body>
+
+
+	<script>
+		const myLucky = new LuckyCanvas.LuckyWheel('#my-lucky', {
+			width: '300px',
+			height: '300px',
+			blocks2: [{
+				padding: '10px',
+				background: '#617df2'
+			}],
+			blocks: [{
+				padding: '28px',
+				imgs: [{
+					src: 'static/imgs/bg.png',
+					width: '100%',
+					height: '100%'
+				}]
+			}],
+			prizes: [{
+					background: '#e9e8fe',
+					fonts: [{
+						text: 'XXX',
+						top: 10
+					}],
+				},
+				{
+					background: '#b8c5f2',
+					fonts: [{
+							text: '邢钢北',
+							top: '10%',
+							fontSize: '24px',
+							fontColor: 'red',
+							fontWeight: '700'
+						},
+						{
+							text: '啦啦🌶',
+							top: '50%',
+							fontColor: '#aaa',
+							fontSize: '12px'
+						},
+					]
+				},
+				{
+					background: '#e9e8fe',
+					fonts: [{
+						text: '上海',
+						top: 10
+					}]
+				},
+				{
+					background: '#b8c5f2',
+					fonts: [{
+							text: '长沙',
+							top: '10%',
+							fontSize: '24px',
+							fontColor: 'red',
+							fontWeight: '700'
+						},
+						{
+							text: '嘤嘤❤️',
+							top: '50%',
+							fontColor: '#aaa',
+							fontSize: '12px'
+						},
+					]
+				},
+				{
+					background: '#e9e8fe',
+					fonts: [{
+						text: '成都',
+						top: 10
+					}]
+				},
+				{
+					background: '#b8c5f2',
+					fonts: [{
+						text: '压马路',
+						top: 10
+					}]
+				},
+			],
+			buttons: [{
+				radius: '35%',
+				background: '#8a9bf3',
+				pointer: true,
+				fonts: [{
+					text: '开始',
+					top: '-10px'
+				}]
+			}],
+			// buttons: [
+			//   {
+			//     radius: '45%',
+			//     imgs: [{
+			//       src: 'static/imgs/wheel-btn.png',
+			//       width: '100%',
+			//       top: '-130%'
+			//     }]
+			//   }
+			// ],
+			start: function() {
+				// 开始游戏
+				myLucky.play()
+				// 使用定时器模拟接口
+				setTimeout(() => {
+					// 结束游戏
+					myLucky.stop(Math.floor(Math.random() * 7))
+				}, 3000)
+			}
+		})
+	</script>
+
+</html>

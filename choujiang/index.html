@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta
+      name="description"
+      content="PUSDN旨在帮助中小企业快速上云,低代码,提供深度定制开发、技术解决方案一站式开发服务平台"
+    />
+    <meta
+      name="keywords"
+      content="低代码,极狐低代码,定制开发,中小企业服务平台,spring框架,pusdn,janeyork"
+    />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://statobjects.oss-cn-beijing.aliyuncs.com/pusdn/2022/09/17/160c4c15e5074667a17a66e8a15c370a.ico"
+    />
+	
+		<title>@JaneYork&@Snow</title>
+<script>
+   var _hmt = _hmt || [];
+   (function() {
+   var hm = document.createElement("script");
+   hm.src = "https://hm.baidu.com/hm.js?8999bd6cffc5a2c2c5b97494ebbf616f";
+   var s = document.getElementsByTagName("script")[0];
+   s.parentNode.insertBefore(hm, s);
+   })();
+    </script><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js">
+    </script><script>
+LA.init({id: "JmgNGPbJPdLq8Afg",ck: "JmgNGPbJPdLq8Afg",autoTrack:true,hashMode:true})
+    </script><script>
+(function(){
+var el = document.createElement("script");
+el.src = "https://lf1-cdn-tos.bytegoofy.com/goofy/ttzz/push.js?28d9f0ce1a687f80afd86aaaafd3fb1b5ace01ab0b37ef9465d58560cef0863e45f9b46c8c41e6235de98982cdddb9785e566c8c06b0b36aec55fccc04fff972a6c09517809143b97aad1198018b8352";
+el.id = "ttzz";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(el, s);
+})(window)
+    </script>
+	
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<style>
+			.el-tag+.el-tag {
+				margin-left: 10px;
+			}
+
+			.button-new-tag {
+				margin-left: 10px;
+				height: 32px;
+				line-height: 30px;
+				padding-top: 0;
+				padding-bottom: 0;
+			}
+
+			.input-new-tag {
+				width: 90px;
+				margin-left: 10px;
+				vertical-align: bottom;
+			}
+
+			.parent {
+				top: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				flex-direction: column;
+			}
+
+			.child {
+				text-align: center;
+				margin: auto;
+			}
+footer {
+  /* background-color: #f2f2f2; */
+  padding: 20px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+		</style>
+	</head>
+	<body>
+
+		<div id="app">
+			<div class="t_container" style="padding:10px;">
+				<el-backtop></el-backtop>
+				<el-row :gutter="20">
+					<el-col :span="24">
+						<div style="margin-bottom: 10px;margin-top: -5px;">
+							<el-alert v-if="false" title="中午吃什么？周末去哪里玩？想要A还是想要B？" type="warning" show-icon>
+							</el-alert>
+							  <el-alert
+							    title="应用场景"
+							    type="info"
+								show-icon
+							    description="中午吃什么？周末去哪里玩？想要A还是想要B？年终抽奖？随机分配人员？">
+							  </el-alert>
+						</div>
+						<div style="margin-bottom: 10px;">
+							<el-alert title="应用场景" type="warning" show-icon>
+							<span slot="title">
+							</span>
+							<ol>
+							  <li>
+								  可以自行添加,删除标签,来添加自己想去的地方、想吃的？<span style="color:red;">点击空白处即可完成添加~</span>
+							  </li>
+							  <li>点击生成新转盘</li>
+							  <li>开始抽奖</li>
+							</ol>
+							</el-alert>
+						</div>
+
+						<el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false"
+							@close="handleClose(tag)">
+							{{tag}}
+						</el-tag>
+						<el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput"
+							size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
+						</el-input>
+						<el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
+					</el-col>
+
+				</el-row>
+				<el-row>
+					<el-col :md="{ span: 12, offset: 6 }" :sm="{ span: 18, offset: 3 }">
+						<div style="text-align: center;margin: 10px;">
+							<el-button type="primary" plain @click="doCj(false)">生成新转盘</el-button>
+							<el-button type="danger" plain @click="reset">清空转盘</el-button>
+						</div>
+					</el-col>
+
+				</el-row>
+				<el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+				<el-button v-if="false" type="text" @click="dialogTableVisible = true"
+					style="color:#487bff">用户中心</el-button>
+				<el-dialog title="用户中心" :visible.sync="dialogTableVisible" style="position: absolute">
+					<el-tabs v-model="activeName" @tab-click="handleClick">
+						<el-tab-pane label="个人信息管理" name="first">
+							<el-form label-position="right" label-width="120px" :model="UserMessage"
+								style="font-size:16px">
+
+							</el-form>
+						</el-tab-pane>
+						<el-tab-pane label="密码管理" name="second">
+							<div class="password-update">
+								<el-form label-position="right" label-width="120px" :model="Password"
+									style="font-size:16px">
+									<el-form-item label="旧密码：">
+										<el-input v-model="Password.oldPassword" show-password></el-input>
+									</el-form-item>
+									<el-form-item label="新密码：">
+										<el-input v-model="Password.newPassword" show-password></el-input>
+									</el-form-item>
+									<el-form-item label="确认密码：">
+										<el-input v-model="Password.newPasswordAgain" show-password></el-input>
+									</el-form-item>
+									<el-form-item>
+										<el-button type="primary">确定</el-button>
+									</el-form-item>
+								</el-form>
+							</div>
+						</el-tab-pane>
+					</el-tabs>
+				</el-dialog>
+			</div>
+			<div class="parent">
+				<div class="child" id="my-lucky2">
+		<!-- 			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86
+						src="//music.163.com/outchain/player?type=2&id=1836115261&auto=1&height=66"></iframe> -->
+						<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="//music.163.com/outchain/player?type=0&id=8310966824&auto=1&height=430"></iframe>
+
+				</div>
+				<div class="child" id="my-lucky">
+
+				</div>
+				<div id="xxoo">
+
+				</div>
+				<lucky-wheel v-show="show" ref="myLucky" width="300px" height="300px" :prizes="prizes" :blocks="blocks" :defaultConfig="defaultConfig" 
+					:buttons="buttons" @start="startCallback" @end="endCallback" />
+			</div>
+			<el-dialog title="更新日志" width="80%" :visible.sync="dialogTableVisible2">
+	  <el-timeline>
+	    <el-timeline-item
+	      v-for="(activity, index) in activities"
+	      :key="index"
+	      :icon="activity.icon"
+	      :type="activity.type"
+	      :color="activity.color"
+	      :size="activity.size"
+	      :timestamp="activity.timestamp">
+	      {{activity.content}}
+	    </el-timeline-item>
+	  </el-timeline>
+			</el-dialog>
+<footer>
+  <div class="container" style="margin-top: 10px;">
+    <p>&copy; 2023 <a target="_blank" href="https://pgz-sbv-gf.pusdn.com/" style="color: dodgerblue;text-decoration: none;cursor: pointer;">JaneYork&Snow</a>. All Rights Reserved.</p>
+	<p style="transform: scale(0.7);">
+		<a target="_blank" href="https://lucky.pusdn.com/v1.html" style="color: gray;text-decoration: none;cursor: pointer;">历史版本</a>
+		<span>&nbsp;|&nbsp; </span>
+	 <a target="" href="javascript:;" @click="dialogTableVisible2 = true" style="color: gray;text-decoration: none;cursor: pointer;">更新日志</a>
+	</p>
+  </div>
+</footer>
+
+		</div>
+
+	</body>
+	<!-- 引入组件库 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/@vue/composition-api@1.2.4/dist/vue-composition-api.prod.js"></script>
+	<script src="https://unpkg.com/vue-demi@0.11.4"></script>
+	<script src="https://unpkg.com/@lucky-canvas/vue@0.1.11"></script>
+	<script>
+		var myLucky;
+		new Vue({
+			el: '#app',
+			data: function() {
+				return {
+					show: false,
+					dynamicTags: ['天津之眼', '平遥古镇', '长沙橘子洲头', '上海', '威海', 'XX'],
+					inputVisible: false,
+					inputValue: '',
+					activeName: 'second',
+					dialogTableVisible: false,
+					dialogTableVisible2: false,
+					isEdit: false,
+					UserMessage: {
+						username: 'XXX',
+						gender: 1,
+						departmentName: 'XXX',
+						role: 'XXX',
+						title: 'XXX',
+						address: 'XXX'
+					},
+					Password: {
+						oldPassword: '',
+						newPassword: '',
+						newPasswordAgain: ''
+					},
+					blocks: [{
+						padding: '28px',
+						imgs: [{
+							src: 'static/imgs/bg.png',
+							width: '100%',
+							height: '100%'
+						}]
+					}],
+					buttons: [{
+						radius: '35%',
+						background: '#8a9bf3',
+						pointer: true,
+						fonts: [{
+							text: '开始',
+							top: '-10px'
+						}]
+					}],
+					defaultConfig: {
+						gutter: '1px'
+					},
+					prizes: [{
+							background: '#e9e8fe',
+							fonts: [{
+								text: 'XXX',
+								top: 10
+							}],
+						},
+						{
+							background: '#b8c5f2',
+							fonts: [{
+									text: '邢钢北',
+									top: '10%',
+									fontSize: '24px',
+									fontColor: 'red',
+									fontWeight: '700'
+								},
+								{
+									text: '啦啦🌶',
+									top: '50%',
+									fontColor: '#aaa',
+									fontSize: '12px'
+								},
+							]
+						},
+						{
+							background: '#e9e8fe',
+							fonts: [{
+								text: '上海',
+								top: 10
+							}]
+						},
+						{
+							background: '#b8c5f2',
+							fonts: [{
+									text: '长沙',
+									top: '10%',
+									fontSize: '24px',
+									fontColor: 'red',
+									fontWeight: '700'
+								},
+								{
+									text: '嘤嘤❤️',
+									top: '50%',
+									fontColor: '#aaa',
+									fontSize: '12px'
+								},
+							]
+						},
+						{
+							background: '#e9e8fe',
+							fonts: [{
+								text: '成都',
+								top: 10
+							}]
+						},
+						{
+							background: '#b8c5f2',
+							fonts: [{
+								text: '压马路',
+								top: 10
+							}]
+						},
+					],
+					       activities: [{
+					          content: '更新网易云曲库',
+					          timestamp: '2023-05-20 13:14',
+					          size: 'large',
+					          type: 'primary',
+					          icon: 'el-icon-more'
+					        }, {
+					          content: '支持自定义标签、动态生成抽奖转盘',
+					          timestamp: '2023-04-03 20:26',
+					          color: '#0bbd87'
+					        }, {
+					          content: '优化操作提示，增加新功能',
+					          timestamp: '2023-02-01 10:46',
+					          size: 'large'
+					        }, {
+					          content: '发布V1版本',
+					          timestamp: '2022-12-23 18:16'
+					        }]
+				}
+			},
+			beforeCreate() {
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading',
+					// spinner: 'el-icon-loading',
+					// background: 'rgba(0, 0, 0, 0.7)'
+				});
+				setTimeout(() => {
+					loading.close();
+				}, 1000);
+			},
+			created() {
+
+				this.doCj(true)
+			},
+			methods: {
+				getRandomColor(minR, maxR, minG, maxG, minB, maxB) {
+					var r = Math.floor(Math.random() * (maxR - minR + 1) + minR);
+					var g = Math.floor(Math.random() * (maxG - minG + 1) + minG);
+					var b = Math.floor(Math.random() * (maxB - minB + 1) + minB);
+					return "rgb(" + r + "," + g + "," + b + ")";
+				},
+				startCallback() {
+					// 调用抽奖组件的play方法开始游戏
+					this.$refs.myLucky.play()
+					// 模拟调用接口异步抽奖
+					setTimeout(() => {
+						let indext = 7
+						if (this.prizes.length > 0) {
+							indext = this.prizes.length
+						}
+						const index = Math.floor(Math.random() * indext)
+						console.log('love snow:' + indext + ' ' + index)
+						// 调用stop停止旋转并传递中奖索引
+						this.$refs.myLucky.stop(index)
+					}, 3000)
+				},
+				// 抽奖结束会触发end回调
+				endCallback(prize) {
+					console.log(prize)
+				},
+				doCj(init) {
+
+					if (!init) {
+						this.prizes = []
+						for (var i = 0; i < this.dynamicTags.length; i++) {
+							var a = {
+								background: i % 2 === 0 ? this.getRandomColor(204, 0, 128, 153, 50, 204) :
+									'#b8c5f2',
+								// fonts: [{
+								// 	text: this.dynamicTags[i],
+								// 	top: 10
+								// }],
+								fonts: [{
+										text: this.dynamicTags[i],
+										top: '10%',
+										// fontSize: '20px',
+										fontColor: i === 0 ? 'red' : 'black',
+										// fontWeight: '600'
+									},
+									{
+										text: i % 2 === 0 ? '嘤嘤❤️' : '@Snow',
+										top: '50%',
+										fontColor: i % 2 !== 0 ? 'pink' : '#aaa',
+										fontSize: '12px'
+									},
+								]
+							}
+							this.prizes.push(a)
+						}
+					}
+					if (this.prizes && this.prizes.length >= 2) {
+						this.show = true
+						var element = document.getElementById("xxoo");
+						element.style.display = "block"
+					} else {
+						this.$message({
+							message: '至少添加两项哦~',
+							type: "error"
+						})
+					}
+
+				},
+				handleClose(tag) {
+					this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+				},
+
+				showInput() {
+					this.inputVisible = true;
+					this.$nextTick(_ => {
+						this.$refs.saveTagInput.$refs.input.focus();
+					});
+				},
+
+				handleInputConfirm() {
+					let inputValue = this.inputValue;
+					if (inputValue) {
+						this.dynamicTags.push(inputValue);
+					}
+					this.inputVisible = false;
+					this.inputValue = '';
+				},
+				handleClick(tab, event) {
+					console.log(tab, event);
+				},
+				editUserInfo() {
+					this.isEdit = true
+				},
+				reset() {
+					var element = document.getElementById("xxoo")
+					element.style.display = "none"
+					this.show = false
+					this.prizes = []
+					this.dynamicTags = []
+				}
+			}
+		})
+	</script>
+</html>
