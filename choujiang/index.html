@@ -187,13 +187,12 @@ p {
 
 				</div>
 				<div class="child" id="my-lucky">
-
+					<lucky-wheel v-show="show" ref="myLucky" width="300px" height="300px" :prizes="prizes" :blocks="blocks" :defaultConfig="defaultConfig"
+						:buttons="buttons" @start="startCallback" @end="endCallback" />
 				</div>
 				<div id="xxoo">
-
 				</div>
-				<lucky-wheel v-show="show" ref="myLucky" width="300px" height="300px" :prizes="prizes" :blocks="blocks" :defaultConfig="defaultConfig" 
-					:buttons="buttons" @start="startCallback" @end="endCallback" />
+
 			</div>
 			<el-dialog title="更新日志" width="80%" :visible.sync="dialogTableVisible2">
 	  <el-timeline>
@@ -434,6 +433,12 @@ p {
 						this.show = true
 						var element = document.getElementById("xxoo");
 						element.style.display = "block"
+						if(!init) {
+							this.$message({
+							     message: '操作成功！',
+							     type: 'success'
+							   });
+						}
 					} else {
 						this.$message({
 							message: '至少添加两项哦~',
@@ -473,6 +478,10 @@ p {
 					this.show = false
 					this.prizes = []
 					this.dynamicTags = []
+					this.$message({
+					     message: '操作成功！',
+					     type: 'success'
+					   })
 				}
 			}
 		})
