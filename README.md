@@ -19,4 +19,6 @@ https://lucky.pusdn.com/
 - 响应式、跨平台，支持手机、PC等多设备
 
 ## 无图言甚pics
-![PUSDN](./screenshot/p1.png)
+![PUSDN](https://raw.githubusercontent.com/JaneYork/lottery/main/screenshot/p1.png)
+![PUSDN](screenshot/p1.png)
+
